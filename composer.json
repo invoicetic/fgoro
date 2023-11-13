@@ -1,0 +1,43 @@
+{
+  "name": "invoicetic/fgoro",
+  "type": "library",
+  "license": "MIT",
+  "description": "invoice Fgoro gateway",
+  "keywords": [],
+  "homepage": "https://github.com/invoicetic/fgoro",
+  "authors": [
+    {
+      "name": "Gabriel Solomon",
+      "email": "hello@gabrielsolomon.ro"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "Invoicetic\\Fgoro\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Invoicetic\\Fgoro\\Tests\\": "tests/src",
+      "Invoicetic\\Fgoro\\Tests\\Fixtures\\": "tests/fixtures"
+    }
+  },
+  "require": {
+    "php": ">=8.0",
+    "ext-json": "*",
+    "invoicetic/common": "dev-main"
+  },
+  "require-dev": {
+    "bytic/phpqatools": "^1.0"
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "config": {
+    "allow-plugins": {
+      "phpstan/extension-installer": true,
+      "ergebnis/composer-normalize": true,
+      "dealerdirect/phpcodesniffer-composer-installer": true,
+      "bytic/phpqatools": true
+    }
+  }
+}
