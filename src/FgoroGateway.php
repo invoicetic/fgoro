@@ -21,6 +21,7 @@ class FgoroGateway extends HttpGateway
         $params = parent::getDefaultParameters();
         $params['login_id'] = $this->getLoginId();
         $params['secret_key'] = $this->getSecretKey();
+        $params['platforma_url'] = $_SERVER['HTTP_HOST'];
         return $params;
     }
 }

@@ -13,19 +13,14 @@ class CreateInvoiceRequest extends AbstractRequest
 
     public function getData(): array
     {
-        $this->validateParameters('login_id', 'secret_key', 'invoice');
+        $this->validateParameters('login_id', 'secret_key', 'invoice', 'platforma_url');
 
-        $data = [];
-        $data['CodUnic'] = $this->getLoginId();
-        $data['Hash'] = '';
+        $data = $this->generateBaseData();
 
         $data = array_merge($data, $this->generateInvoiceData());
         $data['Client'] = $this->generateClientData();
         $data['Continut'] = $this->generateInvoiceLines();
         $data['Hash'] = $this->generateHash($data);
-
-        echo '<pre>';
-        var_dump($data);
 
         return $data;
     }
@@ -67,7 +62,7 @@ class CreateInvoiceRequest extends AbstractRequest
         $invoice = $this->getInvoice();
         $lines = $invoice->getInvoiceLines();
         foreach ($lines as $line) {
-            $data[$line->getId()] = $this->generateInvoiceLine($line);
+            $data[] = $this->generateInvoiceLine($line);
         }
         return $data;
     }

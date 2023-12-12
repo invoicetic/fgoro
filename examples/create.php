@@ -7,7 +7,7 @@ $gateway = require '_init.php';
 $parameters = [
     'DocumentCurrencyCode' => 'RON',
     'idSequence' => [
-        'sequence' => 'INV',
+        'sequence' => 'TST',
     ],
     'accountingCustomerParty' => [
         'name' => 'SC Test SRL',
@@ -59,8 +59,10 @@ $parameters = [
 
 $invoice = Invoice::denormalize($parameters);
 
-$request = $gateway->createInvoice($invoice);
+$request = $gateway->createInvoice($invoice, [
+    'platformaUrl' => '42km.ro',
+]);
 $response = $request->send();
 
 // Send the Symfony HttpRedirectResponse
-var_dump($response);
+var_dump($response->getData());
