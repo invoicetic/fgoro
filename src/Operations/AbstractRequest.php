@@ -9,7 +9,9 @@ use Invoicetic\Fgoro\Behaviours\HasPlatformUrlTrait;
 
 abstract class AbstractRequest extends \Invoicetic\Common\Gateway\Operations\AbstractRequest
 {
-    use HasHttpEndpointRequestTrait;
+    use HasHttpEndpointRequestTrait {
+        createResponseDataFromHttpResponse as protected createResponseDataFromHttpResponseTrait;
+    }
     use HasLoginParametersTrait;
     use HasPlatformUrlTrait;
 
@@ -20,6 +22,11 @@ abstract class AbstractRequest extends \Invoicetic\Common\Gateway\Operations\Abs
         $data['Hash'] = '';
         $data['PlatformaUrl'] = $this->getPlatformaUrl();
         return $data;
+    }
+    protected function createResponseDataFromHttpResponse($httpResponse)
+    {
+        $data = $this->createResponseDataFromHttpResponseTrait($httpResponse);
+        return json_decode($data, true);
     }
 }
 
