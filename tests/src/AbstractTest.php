@@ -1,9 +1,8 @@
 <?php
 
-namespace Marktic\Billing\Tests;
+namespace  Invoicetic\Fgoro\Tests;
 
 use Bytic\Phpqa\PHPUnit\TestCase;
-use Mockery;
 
 /**
  * Class AbstractTest

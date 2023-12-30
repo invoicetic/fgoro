@@ -1,0 +1,10 @@
+{
+  "Success": true,
+  "Message": "",
+  "Factura": {
+    "Numar": "223",
+    "Serie": "SPT",
+    "Link": "https://www.fgo.ro/DescarcaFacturaPdf/edc3e1e1-a589-4544-b1d3-4db8b184bbe2?s=9f094506-86e3-49f0-a925-3088e71dafc4&download=true&ap=true&si=7444",
+    "LinkPlata": null
+  }
+}
