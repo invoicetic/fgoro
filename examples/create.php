@@ -9,6 +9,10 @@ $parameters = [
     'idSequence' => [
         'sequence' => 'TST',
     ],
+    'orderReference' => [
+        'id' => '123456789',
+        'salesOrderId' => '123456789',
+    ],
     'accountingCustomerParty' => [
         'name' => 'SC Test SRL',
         'partyIdentification' => '123456789',
@@ -22,6 +26,11 @@ $parameters = [
         'legalEntity' => [
             'registrationName' => 'SC Test SRL',
             'companyId' => '123456789',
+        ],
+        'contact' => [
+            'name' => 'John Doe',
+            'telephone' => '123456789',
+            'email' => 'test@domain.ro',
         ],
     ],
     'invoiceLines' => [

@@ -4,6 +4,8 @@ namespace Invoicetic\Fgoro\Operations;
 
 use Invoicetic\Common\Dto\InvoiceLine\InvoiceLine;
 use Invoicetic\Common\Gateway\Operations\CreateInvoiceRequestTrait;
+use Invoicetic\Fgoro\Support\Client\ClientFactory;
+use Invoicetic\Fgoro\Support\Invoice\InvoiceFactory;
 
 class CreateInvoiceRequest extends AbstractRequest
 {
@@ -29,26 +31,19 @@ class CreateInvoiceRequest extends AbstractRequest
     {
         $data = [];
         $invoice = $this->getInvoice();
-        $data['TipFactura'] = 'Factura';
-        $data['Serie'] = $invoice->getIdSequence()->getSequence();
+        $invoice = InvoiceFactory::fromInvoice($invoice);
+        return $invoice->toArray();
         $data['Valuta'] = $invoice->getDocumentCurrencyCode();
         return $data;
     }
 
-    protected function generateClientData()
+    protected function generateClientData(): array
     {
-        $data = [];
+        /* @var $invoice \Invoicetic\Common\Dto\Invoice\Invoice */
         $invoice = $this->getInvoice();
         $customer = $invoice->getAccountingCustomerParty();
-        $data['Denumire'] = $customer->getName();
-
-        $identifier = $customer->getPartyIdentification();
-        $data['CodUnic'] = $identifier->getValue();
-
-        $data['Tip'] = $customer->hasLegalEntity() ? 'PJ' : 'PF';
-
-        $data['Judet'] = $customer->getPostalAddress()->getCountrySubentity();
-        return $data;
+        $client = ClientFactory::fromParty($customer);
+        return $client->toArray();
     }
 
     public function getHttpMethod(): string
@@ -97,4 +92,3 @@ class CreateInvoiceRequest extends AbstractRequest
         return $data;
     }
 }
-
