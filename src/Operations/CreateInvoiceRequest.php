@@ -29,12 +29,9 @@ class CreateInvoiceRequest extends AbstractRequest
 
     protected function generateInvoiceData(): array
     {
-        $data = [];
         $invoice = $this->getInvoice();
         $invoice = InvoiceFactory::fromInvoice($invoice);
         return $invoice->toArray();
-        $data['Valuta'] = $invoice->getDocumentCurrencyCode();
-        return $data;
     }
 
     protected function generateClientData(): array
