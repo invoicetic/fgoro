@@ -2,8 +2,10 @@
 
 namespace Invoicetic\Fgoro\Operations;
 
+use Invoicetic\Common\Dto\Base\UnitCode;
 use Invoicetic\Common\Dto\InvoiceLine\InvoiceLine;
 use Invoicetic\Common\Gateway\Operations\CreateInvoiceRequestTrait;
+use Invoicetic\Common\UnitCode\UnitCodeName;
 use Invoicetic\Fgoro\Support\Client\ClientFactory;
 use Invoicetic\Fgoro\Support\Invoice\InvoiceFactory;
 
@@ -82,7 +84,7 @@ class CreateInvoiceRequest extends AbstractRequest
             'Denumire' => $item->getName(),
             'Descriere' => $item->getDescription(),
             'PretUnitar' => $price->getPriceAmount(),
-            'UM' => $quantity->getUnitCode(),
+            'UM' => UnitCodeName::for($quantity->getUnitCode(),'ro'),
             'NrProduse' => $quantity->getQuantity(),
             'CotaTVA' => $taxCategory ? $taxCategory->getPercent() : 0,
         ];
