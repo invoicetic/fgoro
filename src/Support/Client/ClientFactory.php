@@ -3,6 +3,7 @@
 namespace Invoicetic\Fgoro\Support\Client;
 
 use Invoicetic\Common\Dto\Party\Party;
+use Invoicetic\Common\Dto\PostalAddress\PostalAddress;
 
 class ClientFactory
 {
@@ -26,8 +27,12 @@ class ClientFactory
 
     private static function parseIdentification(Party $party, Client $client): void
     {
-        $identifier = $party->getPartyIdentification();
-        $client->setCodUnic($identifier->getValue());
+        $identifier = $party->getPartyIdentification()->getValue();
+        $int = intval($identifier);
+        if ($int == $identifier) {
+            $client->setCodUnic($int);
+            return;
+        }
     }
 
     private static function parseLegalEntity(Party $party, Client $client): void
@@ -38,6 +43,9 @@ class ClientFactory
     private static function parseAddress(Party $party, Client $client)
     {
         $address = $party->getPostalAddress();
+        if (!($address instanceof PostalAddress)) {
+            return;
+        }
         $client->setJudet($address->getCountrySubentity());
         $client->setLocalitate($address->getCityName());
         $client->setAdresa($address->getStreetName() . ' ' . $address->getBuildingNumber());
