@@ -86,8 +86,9 @@ class CreateInvoiceRequest extends AbstractRequest
             'PretUnitar' => $price->getPriceAmount(),
             'UM' => UnitCodeName::for($quantity->getUnitCode(),'ro'),
             'NrProduse' => $quantity->getQuantity(),
-            'CotaTVA' => $taxCategory ? $taxCategory->getPercent() : 0,
+            'CotaTVA' => $taxCategory?->getPercent(),
         ];
+        $data['CotaTVA'] = $data['CotaTVA'] ?? 0;
         return $data;
     }
 }
