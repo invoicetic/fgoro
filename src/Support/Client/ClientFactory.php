@@ -49,7 +49,7 @@ class ClientFactory
         $client->setJudet($address->getCountrySubentity());
         $client->setLocalitate($address->getCityName());
         $client->setAdresa($address->getStreetName() . ' ' . $address->getBuildingNumber());
-//        $data['Tara'] = $customer->getPostalAddress()->getCountry()?->getIdentificationCode();
+        $client->setTara($address->getCountry()?->getIdentificationCode());
     }
 
     private static function parseContact(Party $party, Client $client): void
