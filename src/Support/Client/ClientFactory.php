@@ -28,7 +28,9 @@ class ClientFactory
     private static function parseIdentification(Party $party, Client $client): void
     {
         $identifier = $party->getPartyIdentification()->getValue();
-        $int = intval($identifier);
+        $identifier = strtolower($identifier);
+        $identifier = str_replace('ro', '', $identifier);
+        $int = (int)filter_var($identifier, FILTER_SANITIZE_NUMBER_INT);
         if ($int == $identifier) {
             $client->setCodUnic($int);
             return;

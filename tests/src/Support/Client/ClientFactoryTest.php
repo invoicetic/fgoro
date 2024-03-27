@@ -19,4 +19,12 @@ class ClientFactoryTest extends TestCase
         $client = ClientFactory::fromParty($party);
         self::assertNull($client->getCodUnic());
     }
+
+    public function test_codunic_with_ro()
+    {
+        $party = new Party();
+        $party->setPartyIdentification('RO123456789');
+        $client = ClientFactory::fromParty($party);
+        self::assertSame(123456789, $client->getCodUnic());
+    }
 }
