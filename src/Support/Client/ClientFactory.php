@@ -4,6 +4,7 @@ namespace Invoicetic\Fgoro\Support\Client;
 
 use Invoicetic\Common\Dto\Party\Party;
 use Invoicetic\Common\Dto\PostalAddress\PostalAddress;
+use Invoicetic\Fgoro\Support\CountyFilter;
 
 class ClientFactory
 {
@@ -48,7 +49,7 @@ class ClientFactory
         if (!($address instanceof PostalAddress)) {
             return;
         }
-        $client->setJudet($address->getCountrySubentity());
+        $client->setJudet(CountyFilter::filter($address->getCountrySubentity()));
         $client->setLocalitate($address->getCityName());
         $client->setAdresa($address->getStreetName() . ' ' . $address->getBuildingNumber());
         $client->setTara($address->getCountry()?->getIdentificationCode());
