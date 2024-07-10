@@ -26,7 +26,9 @@ class CountyFilterTest extends TestCase
     {
         return [
             ['Bucureşti', 'Bucuresti'],
-            ['Timiş', 'Timis']
+            ['Timiş', 'Timis'],
+            ['D&acirc;mbovița', 'Dambovita'],
+            ['Ploiesti', 'Prahova'],
         ];
     }
 }
