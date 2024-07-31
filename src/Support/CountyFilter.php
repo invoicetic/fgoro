@@ -26,6 +26,10 @@ class CountyFilter
         $cities = [
             'Ploiesti' => 'Prahova',
             'Chiajna' => 'Ilfov',
+            'Bistrita Nasaud' => 'Bistrita-Nasaud',
+            'Bistrița Năsăud' => 'Bistrita-Nasaud',
+        'Cluj-Napoca' => 'Cluj',
+        'Cluj Napoca' => 'Cluj',
         ];
         return $cities[$name] ?? $name;
     }
