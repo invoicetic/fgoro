@@ -83,11 +83,15 @@ class CreateInvoiceRequest extends AbstractRequest
         $data = [
             'Denumire' => $item->getName(),
             'Descriere' => $item->getDescription(),
-            'PretUnitar' => $price->getPriceAmount(),
             'UM' => UnitCodeName::for($quantity->getUnitCode(),'ro'),
             'NrProduse' => $quantity->getQuantity(),
             'CotaTVA' => $taxCategory?->getPercent(),
         ];
+        if ($line->hasTotalAmount()) {
+            $data['PretTotal'] = $line->getTotalAmount();
+        } else {
+            $data['PretUnitar'] = $price->getPriceAmount();
+        }
         $data['CotaTVA'] = $data['CotaTVA'] ?? 0;
         return $data;
     }
