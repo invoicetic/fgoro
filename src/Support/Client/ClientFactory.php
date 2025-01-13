@@ -23,7 +23,9 @@ class ClientFactory
 
     private static function parseName(Party $party, Client $client): void
     {
-        $client->setDenumire($party->getName());
+        $name = $party->getName();
+        $name = html_entity_decode($name, ENT_QUOTES, 'UTF-8');
+        $client->setDenumire($name);
     }
 
     private static function parseIdentification(Party $party, Client $client): void

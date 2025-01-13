@@ -11,6 +11,7 @@ class CountyFilter
         $name = static::filterDiacritics($name);
         $name = static::filterIncorectNames($name);
         $name = trim($name);
+        $name = strtolower($name);
         $name = static::filterCities($name);
         return $name;
     }
@@ -24,12 +25,16 @@ class CountyFilter
     protected static function filterCities(bool|string $name): bool|string
     {
         $cities = [
-            'Ploiesti' => 'Prahova',
-            'Chiajna' => 'Ilfov',
-            'Bistrita Nasaud' => 'Bistrita-Nasaud',
-            'Bistrița Năsăud' => 'Bistrita-Nasaud',
-        'Cluj-Napoca' => 'Cluj',
-        'Cluj Napoca' => 'Cluj',
+            'chiajna' => 'Ilfov',
+            'bistrita masaud' => 'Bistrita-Nasaud',
+            'bistrița năsăud' => 'Bistrita-Nasaud',
+            'cluj-napoca' => 'Cluj',
+            'cluj napoca' => 'Cluj',
+            'gilau' => 'Cluj',
+            'huedin' => 'Cluj',
+            'miercurea ciuc' => 'Harghita',
+            'ploiesti' => 'Prahova',
+            'targu mures' => 'Mures',
         ];
         return $cities[$name] ?? $name;
     }

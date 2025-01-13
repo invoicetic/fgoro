@@ -25,6 +25,7 @@
   "require": {
     "php": ">=8.0",
     "ext-json": "*",
+    "ext-iconv": "*",
     "invoicetic/common": "dev-main",
     "nyholm/psr7": "^1.8"
   },
