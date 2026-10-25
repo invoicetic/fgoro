@@ -2,7 +2,6 @@
 
 namespace Invoicetic\Fgoro\Operations;
 
-use Invoicetic\Common\Dto\Base\UnitCode;
 use Invoicetic\Common\Dto\InvoiceLine\InvoiceLine;
 use Invoicetic\Common\Gateway\Operations\CreateInvoiceRequestTrait;
 use Invoicetic\Common\UnitCode\UnitCodeName;
@@ -13,18 +12,15 @@ class CreateInvoiceRequest extends AbstractRequest
 {
     use CreateInvoiceRequestTrait;
 
-    const ENDPOINT = '/factura/emitere';
+    const ENDPOINT = '/facturi';
 
     public function getData(): array
     {
-        $this->validateParameters('login_id', 'secret_key', 'invoice', 'platforma_url');
+        $this->validateParameters('login_id', 'secret_key', 'invoice');
 
-        $data = $this->generateBaseData();
-
-        $data = array_merge($data, $this->generateInvoiceData());
-        $data['Client'] = $this->generateClientData();
-        $data['Continut'] = $this->generateInvoiceLines();
-        $data['Hash'] = $this->generateHash($data);
+        $data = $this->generateInvoiceData();
+        $data['client'] = $this->generateClientData();
+        $data['continut'] = $this->generateInvoiceLines();
 
         return $data;
     }
@@ -61,15 +57,6 @@ class CreateInvoiceRequest extends AbstractRequest
         return $data;
     }
 
-    protected function generateHash($data)
-    {
-        return strtoupper(
-            sha1(
-                $data['CodUnic'] . $this->getSecretKey() . $data['Client']['Denumire']
-            )
-        );
-    }
-
     /**
      * @param InvoiceLine $line
      * @return array
@@ -81,18 +68,17 @@ class CreateInvoiceRequest extends AbstractRequest
         $quantity = $line->getInvoicedQuantity();
         $taxCategory = $item->getClassifiedTaxCategory();
         $data = [
-            'Denumire' => $item->getName(),
-            'Descriere' => $item->getDescription(),
-            'UM' => UnitCodeName::for($quantity->getUnitCode(),'ro'),
-            'NrProduse' => $quantity->getQuantity(),
-            'CotaTVA' => $taxCategory?->getPercent(),
+            'denumire' => $item->getName(),
+            'descriere' => $item->getDescription(),
+            'um' => UnitCodeName::for($quantity->getUnitCode(), 'ro'),
+            'nr_produse' => $quantity->getQuantity(),
+            'cota_tva' => $taxCategory?->getPercent() ?? 0,
         ];
         if ($line->hasTotalAmount()) {
-            $data['PretTotal'] = $line->getTotalAmount();
+            $data['pret_total'] = $line->getTotalAmount();
         } else {
-            $data['PretUnitar'] = $price->getPriceAmount();
+            $data['pret_unitar'] = $price->getPriceAmount();
         }
-        $data['CotaTVA'] = $data['CotaTVA'] ?? 0;
         return $data;
     }
 }

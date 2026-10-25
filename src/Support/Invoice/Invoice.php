@@ -76,13 +76,13 @@ class Invoice
     public function toArray(): array
     {
         $data = [
-            'TipFactura' => $this->TipFactura,
-            'Serie' => $this->Serie,
-            'Numar' => $this->Numar,
-            'Valuta' => $this->Valuta,
+            'tip_factura' => $this->TipFactura,
+            'serie' => $this->Serie,
+            'numar' => $this->Numar,
+            'valuta' => $this->Valuta,
         ];
         if ($this->IdExtern) {
-            $data['IdExtern'] = $this->IdExtern;
+            $data['id_extern'] = $this->IdExtern;
         }
         return $data;
     }
