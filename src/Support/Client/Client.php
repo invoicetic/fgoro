@@ -241,19 +241,19 @@ class Client
     public function toArray(): array
     {
         $data = [
-            'Tip' => $this->Tip,
-            'Denumire' => $this->Denumire,
-            'CodUnic' => $this->CodUnic,
-            'NrRegCom' => $this->NrRegCom,
-            'Email' => $this->Email,
-            'Telefon' => $this->Telefon,
-            'Tara' => $this->Tara,
-            'Judet' => $this->Judet,
-            'Localitate' => $this->Localitate,
-            'Adresa' => $this->Adresa,
+            'tip' => $this->Tip,
+            'denumire' => $this->Denumire,
+            'cod_unic' => $this->CodUnic,
+            'nr_reg_com' => $this->NrRegCom,
+            'email' => $this->Email,
+            'telefon' => $this->Telefon,
+            'tara' => $this->Tara,
+            'judet' => $this->Judet,
+            'localitate' => $this->Localitate,
+            'adresa' => $this->Adresa,
         ];
         if ($this->IdExtern) {
-            $data['IdExtern'] = $this->IdExtern;
+            $data['id_extern'] = $this->IdExtern;
         }
         return $data;
     }

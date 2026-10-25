@@ -11,7 +11,7 @@ $gateway->initialize(
     [
         'login_id' => $_ENV['FGO_LOGIN_ID'],
         'secret_key' => $_ENV['FGO_SECRET_KEY'],
-        'sandbox' => true,
+        'sandbox' => false,
     ]
 );
 

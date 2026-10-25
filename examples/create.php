@@ -21,7 +21,7 @@ $parameters = [
             'buildingNumber' => '1',
             'cityName' => 'Bucuresti',
             'postalZone' => '123456',
-            'country' => 'RO',
+            'country' => ['identificationCode' => 'RO'],
         ],
         'legalEntity' => [
             'registrationName' => 'SC Test SRL',
@@ -68,10 +68,11 @@ $parameters = [
 
 $invoice = Invoice::denormalize($parameters);
 
-$request = $gateway->createInvoice($invoice, [
-    'platformaUrl' => '42km.ro',
-]);
+$request = $gateway->createInvoice($invoice);
 $response = $request->send();
 
-// Send the Symfony HttpRedirectResponse
+if (!$response->isSuccessful()) {
+    throw new RuntimeException($response->getStatusCode() . ': ' . $response->getMessage());
+}
+
 var_dump($response->getData());
